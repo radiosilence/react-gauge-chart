@@ -36,10 +36,10 @@ var import_d3 = require("d3");
 var import_react2 = __toESM(require("react"));
 
 // src/lib/GaugeChart/customHooks.js
-var import_isEqual = __toESM(require("lodash/isEqual"));
+var import_lodash = require("lodash");
 var import_react = require("react");
 var isDeepEquals = (toCompare, reference) => {
-  return (0, import_isEqual.default)(toCompare, reference);
+  return (0, import_lodash.isEqual)(toCompare, reference);
 };
 var useDeepCompareMemo = (dependencies) => {
   const ref = (0, import_react.useRef)(null);

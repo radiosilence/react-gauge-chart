@@ -1,7 +1,7 @@
 import {
   GaugeChart_default
-} from "./chunk-4DEZUJE6.mjs";
-import "./chunk-QOW64DVM.mjs";
+} from "./chunk-EHPW7ZBG.mjs";
+import "./chunk-BYQKYO24.mjs";
 
 // src/lib/index.js
 var lib_default = GaugeChart_default;

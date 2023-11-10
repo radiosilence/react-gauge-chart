@@ -1,6 +1,6 @@
 import {
   customHooks_default
-} from "../chunk-QOW64DVM.mjs";
+} from "../chunk-BYQKYO24.mjs";
 export {
   customHooks_default as default
 };
