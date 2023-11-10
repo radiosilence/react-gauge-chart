@@ -1,14 +1,13 @@
-import React, { useCallback, useEffect, useRef, useLayoutEffect } from "react";
 import {
   arc,
-  pie,
-  select,
   easeElastic,
-  scaleLinear,
   interpolateHsl,
   interpolateNumber,
+  pie,
+  scaleLinear,
+  select,
 } from "d3";
-import PropTypes from "prop-types";
+import React, { useCallback, useEffect, useLayoutEffect, useRef } from "react";
 
 import useDeepCompareEffect from "./customHooks";
 /*
@@ -224,33 +223,7 @@ GaugeChart.defaultProps = {
   fontSize: null,
   animateDuration: 3000,
   textComponent: undefined,
-  needleScale: 0.55
-};
-
-GaugeChart.propTypes = {
-  id: PropTypes.string,
-  className: PropTypes.string,
-  style: PropTypes.object,
-  marginInPercent: PropTypes.number,
-  cornerRadius: PropTypes.number,
-  nrOfLevels: PropTypes.number,
-  percent: PropTypes.number,
-  arcPadding: PropTypes.number,
-  arcWidth: PropTypes.number,
-  arcsLength: PropTypes.array,
-  colors: PropTypes.array,
-  textColor: PropTypes.string,
-  needleColor: PropTypes.string,
-  needleBaseColor: PropTypes.string,
-  hideText: PropTypes.bool,
-  animate: PropTypes.bool,
-  formatTextValue: PropTypes.func,
-  fontSize: PropTypes.string,
-  animateDuration: PropTypes.number,
-  animDelay: PropTypes.number,
-  textComponent: PropTypes.element,
-  textComponentContainerClassName: PropTypes.string,
-  needleScale: PropTypes.number
+  needleScale: 0.55,
 };
 
 // This function update arc's datas when component is mounting or when one of arc's props is updated
@@ -387,13 +360,26 @@ const drawNeedle = (
   outerRadius,
   g
 ) => {
-  const { percent, needleColor, needleBaseColor, hideText, animate, needleScale, textComponent } = props;
+  const {
+    percent,
+    needleColor,
+    needleBaseColor,
+    hideText,
+    animate,
+    needleScale,
+    textComponent,
+  } = props;
   var needleRadius = 15 * (width.current / 500), // Make the needle radius responsive
     centerPoint = [0, -needleRadius / 2];
   //Draw the triangle
   //var pathStr = `M ${leftPoint[0]} ${leftPoint[1]} L ${topPoint[0]} ${topPoint[1]} L ${rightPoint[0]} ${rightPoint[1]}`;
   const prevPercent = prevProps ? prevProps.percent : 0;
-  var pathStr = calculateRotation(prevPercent || percent, outerRadius, width, needleScale);
+  var pathStr = calculateRotation(
+    prevPercent || percent,
+    outerRadius,
+    width,
+    needleScale
+  );
   needle.current.append("path").attr("d", pathStr).attr("fill", needleColor);
   //Add a circle at the bottom of needle
   needle.current
@@ -418,7 +404,10 @@ const drawNeedle = (
           const progress = currentPercent(percentOfPercent);
           return container.current
             .select(`.needle path`)
-            .attr("d", calculateRotation(progress, outerRadius, width, needleScale));
+            .attr(
+              "d",
+              calculateRotation(progress, outerRadius, width, needleScale)
+            );
         };
       });
   } else {
