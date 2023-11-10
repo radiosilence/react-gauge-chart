@@ -1,59 +1,18 @@
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+import {
+  customHooks_default
+} from "./chunk-QOW64DVM.mjs";
 
 // src/lib/GaugeChart/index.jsx
-var GaugeChart_exports = {};
-__export(GaugeChart_exports, {
-  default: () => GaugeChart_default
-});
-module.exports = __toCommonJS(GaugeChart_exports);
-var import_d3 = require("d3");
-var import_react2 = __toESM(require("react"));
-
-// src/lib/GaugeChart/customHooks.js
-var import_lodash = __toESM(require("lodash"));
-var import_react = require("react");
-var isDeepEquals = (toCompare, reference) => {
-  return import_lodash.default.isEqual(toCompare, reference);
-};
-var useDeepCompareMemo = (dependencies) => {
-  const ref = (0, import_react.useRef)(null);
-  if (isDeepEquals(dependencies, ref.current)) {
-    ref.current = dependencies;
-  }
-  return ref.current;
-};
-var useDeepCompareEffect = (callback, dependencies) => {
-  (0, import_react.useEffect)(callback, [useDeepCompareMemo(dependencies), callback]);
-};
-var customHooks_default = useDeepCompareEffect;
-
-// src/lib/GaugeChart/index.jsx
+import {
+  arc,
+  easeElastic,
+  interpolateHsl,
+  interpolateNumber,
+  pie,
+  scaleLinear,
+  select
+} from "d3";
+import React, { useCallback, useEffect, useLayoutEffect, useRef } from "react";
 var startAngle = -Math.PI / 2;
 var endAngle = Math.PI / 2;
 var defaultStyle = {
@@ -67,23 +26,23 @@ var animateNeedleProps = [
   "animDelay"
 ];
 var GaugeChart = (props) => {
-  const svg = (0, import_react2.useRef)({});
-  const g = (0, import_react2.useRef)({});
-  const width = (0, import_react2.useRef)({});
-  const height = (0, import_react2.useRef)({});
-  const doughnut = (0, import_react2.useRef)({});
-  const needle = (0, import_react2.useRef)({});
-  const outerRadius = (0, import_react2.useRef)({});
-  const margin = (0, import_react2.useRef)({});
-  const container = (0, import_react2.useRef)({});
-  const nbArcsToDisplay = (0, import_react2.useRef)(0);
-  const colorArray = (0, import_react2.useRef)([]);
-  const arcChart = (0, import_react2.useRef)((0, import_d3.arc)());
-  const arcData = (0, import_react2.useRef)([]);
-  const pieChart = (0, import_react2.useRef)((0, import_d3.pie)());
-  const prevProps = (0, import_react2.useRef)(props);
-  let selectedRef = (0, import_react2.useRef)({});
-  const initChart = (0, import_react2.useCallback)(
+  const svg = useRef({});
+  const g = useRef({});
+  const width = useRef({});
+  const height = useRef({});
+  const doughnut = useRef({});
+  const needle = useRef({});
+  const outerRadius = useRef({});
+  const margin = useRef({});
+  const container = useRef({});
+  const nbArcsToDisplay = useRef(0);
+  const colorArray = useRef([]);
+  const arcChart = useRef(arc());
+  const arcData = useRef([]);
+  const pieChart = useRef(pie());
+  const prevProps = useRef(props);
+  let selectedRef = useRef({});
+  const initChart = useCallback(
     (update, resize = false, prevProps2) => {
       if (update) {
         renderChart(
@@ -133,9 +92,9 @@ var GaugeChart = (props) => {
     },
     [props]
   );
-  (0, import_react2.useLayoutEffect)(() => {
+  useLayoutEffect(() => {
     setArcData(props, nbArcsToDisplay, colorArray, arcData);
-    container.current = (0, import_d3.select)(selectedRef);
+    container.current = select(selectedRef);
     initChart();
   }, [props, initChart]);
   customHooks_default(() => {
@@ -155,7 +114,7 @@ var GaugeChart = (props) => {
     props.needleColor,
     props.needleBaseColor
   ]);
-  (0, import_react2.useEffect)(() => {
+  useEffect(() => {
     const handleResize = () => {
       var resize = true;
       renderChart(
@@ -188,7 +147,7 @@ var GaugeChart = (props) => {
     textComponent,
     textComponentContainerClassName
   } = props;
-  return /* @__PURE__ */ import_react2.default.createElement(
+  return /* @__PURE__ */ React.createElement(
     "div",
     {
       id,
@@ -196,7 +155,7 @@ var GaugeChart = (props) => {
       style,
       ref: (svg2) => selectedRef = svg2
     },
-    /* @__PURE__ */ import_react2.default.createElement(
+    /* @__PURE__ */ React.createElement(
       "div",
       {
         className: textComponentContainerClassName,
@@ -287,7 +246,7 @@ var renderChart = (resize, prevProps, width, margin, height, outerRadius, g, dou
 };
 var getColors = (props, nbArcsToDisplay) => {
   const { colors } = props;
-  var colorScale = (0, import_d3.scaleLinear)().domain([1, nbArcsToDisplay.current]).range([colors[0], colors[colors.length - 1]]).interpolate(import_d3.interpolateHsl);
+  var colorScale = scaleLinear().domain([1, nbArcsToDisplay.current]).range([colors[0], colors[colors.length - 1]]).interpolate(interpolateHsl);
   var colorArray = [];
   for (var i = 1; i <= nbArcsToDisplay.current; i++) {
     colorArray.push(colorScale(i));
@@ -318,8 +277,8 @@ var drawNeedle = (resize, prevProps, props, width, needle, container, outerRadiu
     addText(percent, props, outerRadius, width, g);
   }
   if (!resize && animate) {
-    needle.current.transition().delay(props.animDelay).ease(import_d3.easeElastic).duration(props.animateDuration).tween("progress", function() {
-      const currentPercent = (0, import_d3.interpolateNumber)(prevPercent, percent);
+    needle.current.transition().delay(props.animDelay).ease(easeElastic).duration(props.animateDuration).tween("progress", function() {
+      const currentPercent = interpolateNumber(prevPercent, percent);
       return function(percentOfPercent) {
         const progress = currentPercent(percentOfPercent);
         return container.current.select(`.needle path`).attr(
@@ -388,4 +347,8 @@ var updateDimensions = (props, container, margin, width, height) => {
   margin.current.top = divHeight * marginInPercent;
   margin.current.bottom = divHeight * marginInPercent;
   height.current = width.current / 2 - margin.current.top - margin.current.bottom;
+};
+
+export {
+  GaugeChart_default
 };

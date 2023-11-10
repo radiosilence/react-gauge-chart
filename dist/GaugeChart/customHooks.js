@@ -1,35 +1,50 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _isEqual = _interopRequireDefault(require("lodash/isEqual"));
-
-var _react = require("react");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var isDeepEquals = function isDeepEquals(toCompare, reference) {
-  return (0, _isEqual.default)(toCompare, reference);
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-var useDeepCompareMemo = function useDeepCompareMemo(dependencies) {
-  var ref = (0, _react.useRef)(null);
-
+// src/lib/GaugeChart/customHooks.js
+var customHooks_exports = {};
+__export(customHooks_exports, {
+  default: () => customHooks_default
+});
+module.exports = __toCommonJS(customHooks_exports);
+var import_lodash = __toESM(require("lodash"));
+var import_react = require("react");
+var isDeepEquals = (toCompare, reference) => {
+  return import_lodash.default.isEqual(toCompare, reference);
+};
+var useDeepCompareMemo = (dependencies) => {
+  const ref = (0, import_react.useRef)(null);
   if (isDeepEquals(dependencies, ref.current)) {
     ref.current = dependencies;
   }
-
   return ref.current;
-}; // this function compares deeply new dependencies with old one
-// It works like useEffect but we are using isEqual from lodash to compares deeply
-
-
-var useDeepCompareEffect = function useDeepCompareEffect(callback, dependencies) {
-  (0, _react.useEffect)(callback, [useDeepCompareMemo(dependencies), callback]);
 };
-
-var _default = useDeepCompareEffect;
-exports.default = _default;
+var useDeepCompareEffect = (callback, dependencies) => {
+  (0, import_react.useEffect)(callback, [useDeepCompareMemo(dependencies), callback]);
+};
+var customHooks_default = useDeepCompareEffect;
